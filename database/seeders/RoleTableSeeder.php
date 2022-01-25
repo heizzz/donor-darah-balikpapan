@@ -17,17 +17,17 @@ class RoleTableSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         DB::table('roles')->truncate(); //for cleaning earlier data to avoid duplicate entries
         DB::table('roles')->insert([
-          'name' => 'Admin',
-          'id' => '1'
-        ]);
-        DB::table('roles')->insert([
             'name' => 'User',
-            'id' => '2'
+            'id' => '1'
         ]);
         DB::table('roles')->insert([
             'name' => 'Admin Rumah Sakit',
-            'id' => '3'
+            'id' => '2'
         ]);
+        DB::table('roles')->insert([
+            'name' => 'Admin',
+            'id' => '3'
+          ]);
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
