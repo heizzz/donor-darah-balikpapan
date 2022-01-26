@@ -18,6 +18,7 @@ class CreateAppointmentsTable extends Migration
             $table->bigInteger('id_user')->unsigned();
             $table->bigInteger('id_rumah_sakit')->unsigned();
             $table->bigInteger('id_blood_detail')->unsigned()->nullable();
+            $table->date('tanggal');
             $table->time('waktu');
             $table->string('status');
             $table->timestamps();

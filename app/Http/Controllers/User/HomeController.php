@@ -24,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $appointment = DB::table('appointments')
+                        ->where('id_user', '=', Auth::user()->id)
+                        ->whereIn('status', ["pending", "ongoing"])
+                        ->first();
+        return view('user.home');
     }
 }

@@ -33,7 +33,7 @@ Auth::routes();
 
 Route::group(['prefix' => '/'], function(){
     Route::get('home', [UserHomeController::class, 'index'])->name('user-home');
-    
+
     Route::group(['prefix' => 'account'], function(){
         Route::get('/', [UserUserController::class, 'index'])->name('user-account-index');
         Route::get('/edit', [UserUserController::class, 'editProfile'])->name('user-profile-edit');
@@ -51,8 +51,8 @@ Route::group(['prefix' => '/'], function(){
         Route::get('/create', [UserAppointmentController::class, 'create'])->name('user-appointment-create');
         Route::post('/store', [UserAppointmentController::class, 'store'])->name('user-appointment-store');
         Route::get('/history', [UserAppointmentController::class, 'history'])->name('user-appointment-history');
-        Route::get('/detail', [UserAppointmentController::class, 'appointmentDetail'])->name('user-appointment-detail');
-        Route::get('/blood/detail', [UserAppointmentController::class, 'donorDetail'])->name('user-appointment-blood-detail');
+        Route::get('/detail/{id}', [UserAppointmentController::class, 'appointmentDetail'])->name('user-appointment-detail');
+        Route::get('/blood/detail/{id}', [UserAppointmentController::class, 'donorDetail'])->name('user-appointment-blood-detail');
     });
 });
 

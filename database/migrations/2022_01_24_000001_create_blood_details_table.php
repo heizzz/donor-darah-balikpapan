@@ -18,7 +18,8 @@ class CreateBloodDetailsTable extends Migration
             $table->bigInteger('id_blood_type')->unsigned();
             $table->bigInteger('id_appointment')->unsigned()->nullable();
             $table->bigInteger('id_blood_component')->unsigned();
-            $table->integer('bb_tb');
+            $table->integer('berat_badan')->nullable();
+            $table->integer('tinggi_badan')->nullable();
             $table->integer('tekanan_sistol');
             $table->integer('tekanan_diastol');
             $table->integer('kadar_hb');

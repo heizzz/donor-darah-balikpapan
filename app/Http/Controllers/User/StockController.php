@@ -24,10 +24,14 @@ class StockController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // $bloodStocks = DB::table('blood_stocks')
+        //                 ->join('blood_types', 'blood_stocks.id_blood_type', 'blood_types.id')
+        //                 ->groupBy('id_blood_type')
+        //                 ->selectRaw('rumah.blok, count(pembayaran.total) as jumlah_pembayaran, max(tanggal_bayar) as pembayaran_terakhir');
+        return view('user.bloodStock');
     }
 
-    public function detail(Request $request) 
+    public function detail(Request $request)
     {
 
     }

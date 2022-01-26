@@ -22,9 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('nik')->nullable();
             $table->string('alamat');
-            $table->integer('usia')->nullable();
-            $table->integer('berat_badan')->nullable();
-            $table->integer('tinggi_badan')->nullable();
+            $table->date('tanggal_lahir');
             $table->rememberToken();
             $table->timestamps();
 

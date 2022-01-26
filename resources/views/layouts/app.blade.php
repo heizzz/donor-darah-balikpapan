@@ -24,7 +24,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="d-flex flex-column min-vh-100">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -84,6 +84,11 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="text-center py-3 my-4 mt-auto border-top">
+            <img class="logo-sponsor" src="{{ url('img/LogoDiskominfo.png') }}">
+            <img class="logo-sponsor" src="{{ url('img/LogoPemkotBalikpapan.png') }}">
+        </footer>
     </div>
 </body>
 </html>

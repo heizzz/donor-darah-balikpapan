@@ -24,11 +24,39 @@ class StockController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // get data
+        $data = DB::table('blood_stocks')
+            ->join('blood_types', 'blood_types.id', 'blood_stocks.id_blood_type')
+            ->join('blood_components', 'blood_types.id', 'blood_stocks.id_blood_components')
+            ->where('id_user', Auth::user()->id)
+            ->get();
+
+        return view('adminHospital.bloodStock', compact('data'));
     }
 
-    public function update(Request $request) 
+    public function update(Request $request)
     {
+        // get data
+        // $total = DB::table('blood_stocks')
+        //     ->where('id', $request->input('id'))
+        //     ->value('jumlah');
+        $newTotal = $request->input('total');
+        // $mode = $request->input('mode');
 
+        // if ($mode === 'increment') {
+        //     $total++;
+        // } else if ($mode === 'decrement') {
+        //     $total--;
+        // }
+
+        // update db
+        DB::table('blood_stocks')
+            ->where('id', $request->input('id'))
+            ->update([
+                'jumlah' => $newTotal,
+                "updated_at" => Carbon::now()
+            ]);
+
+        return redirect()->route('rs-stock-index');
     }
 }
