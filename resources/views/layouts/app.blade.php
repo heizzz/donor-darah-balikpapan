@@ -15,6 +15,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,6 +28,13 @@
     <div id="app" class="d-flex flex-column min-vh-100">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
+                {{-- @php
+                    $home_route = 'user-home';
+                    if(Auth::user()->id_role == 2)
+                        $home_route = 'rs-home';
+                    else if (Auth::user()->id_role == 3)
+                        $home_route = 'admin-home'
+                @endphp --}}
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name') }}
                     @hasSection('title')
@@ -60,9 +68,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('user-account-index') }}">
-                                        Akun Saya
-                                    </a>
+                                    @php
+                                        $target_route = 'user-account-index';
+                                        if(Auth::user()->id_role == 2)
+                                            $target_route = 'rs-account-index';
+                                    @endphp
+                                        <a class="dropdown-item" href="{{ route($target_route) }}">
+                                            Akun Saya
+                                        </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -91,4 +104,5 @@
         </footer>
     </div>
 </body>
+@yield('scripts')
 </html>

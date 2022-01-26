@@ -17,7 +17,7 @@ class CreateBloodStocksTable extends Migration
             $table->id();
             $table->bigInteger('id_user')->unsigned();
             $table->bigInteger('id_blood_type')->unsigned();
-            $table->bigInteger('id_blood_component')->unsigned();
+            $table->bigInteger('id_blood_component')->unsigned()->nullable();
             $table->integer('jumlah');
             $table->timestamps();
 

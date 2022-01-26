@@ -4,28 +4,39 @@
 
 @section('content')
 <div class="container">
-    {{ Auth::user() }}
-    <div class="text-center">
-        <h1>
-            {{ Auth::user()->name }}
-        </h1>
+    <form action="{{ route('user-profile-update') }}" method="post">
+        @csrf
 
-        <form action="" method="post">
-
-        </form>
-        <hr/>
-        Alamat: {{ Auth::user()->alamat }}
-        <br/>
-
-
-    </div>
-    <div class="text-center">
-        <a class="btn btn-secondary" href="{{ route('user-profile-edit') }}" role="button">
-            Ubah Data Diri
-        </a>
-        <a class="btn btn-secondary" href="{{ route('user-password-edit') }}" role="button">
-            Ubah Password
-        </a>
-    </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Nama Lengkap</label>
+            <input type="text" name="name" id="name" value="{{ Auth::user()->name }}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="nik" class="form-label">NIK</label>
+            <input type="text" name="nik" id="nik" value="{{ Auth::user()->nik }}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" id="email" value="{{ Auth::user()->email }}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Jenis Kelamin</label>
+            <select type="gender" name="gender" id="gender" value="{{ Auth::user()->gender }}" class="form-control">
+                <option>-- Pilih Gender --</option>
+                <option value="m">Laki-laki (Male)</option>
+                <option value="f">Perempuan (Female)</option>
+                <option value="o">Lainnya (Others)</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="birthDate" class="form-label">Tanggal Lahir</label>
+            <input type="date" name="birthDate" id="birthDate" value="{{ Auth::user()->tanggal_lahir }}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Alamat</label>
+            <input type="text" name="address" id="address" value="{{ Auth::user()->alamat }}" class="form-control"/>
+        </div>
+        <button class="btn btn-primary" type="submit">Ubah Data</button>
+    </form>
 </div>
 @endsection

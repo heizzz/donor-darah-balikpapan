@@ -25,9 +25,10 @@ use App\Http\Controllers\Admin\HospitalController as AdminHospitalController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/test', function () {
+//     return view('home');
+// });
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
@@ -37,9 +38,9 @@ Route::group(['prefix' => '/'], function(){
     Route::group(['prefix' => 'account'], function(){
         Route::get('/', [UserUserController::class, 'index'])->name('user-account-index');
         Route::get('/edit', [UserUserController::class, 'editProfile'])->name('user-profile-edit');
-        Route::put('/update', [UserUserController::class, 'updateProfile'])->name('user-profile-update');
+        Route::post('/update', [UserUserController::class, 'updateProfile'])->name('user-profile-update');
         Route::get('/change-password', [UserUserController::class, 'changePassword'])->name('user-password-edit');
-        Route::put('/change-password', [UserUserController::class, 'updatePassword'])->name('user-password-update');
+        Route::post('/change-password', [UserUserController::class, 'updatePassword'])->name('user-password-update');
     });
 
     Route::group(['prefix' => 'stocks'], function(){
@@ -65,32 +66,33 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('create', [AdminHospitalController::class, 'create'])->name('admin-hospital-create');
         Route::post('store', [AdminHospitalController::class, 'store'])->name('admin-hospital-store');
         Route::get('{id}', [AdminHospitalController::class, 'detail'])->name('admin-hospital-detail');
-        Route::put('{id}/update', [AdminHospitalController::class, 'update'])->name('admin-hospital-update');
+        Route::post('{id}/update', [AdminHospitalController::class, 'update'])->name('admin-hospital-update');
         Route::delete('{id}/delete', [AdminHospitalController::class, 'delete'])->name('admin-hospital-delete');
     });
 });
 
 Route::group(['prefix' => 'hospital'], function(){
     Route::get('home', [HospitalHomeController::class, 'index'])->name('rs-home');
+    Route::get('scan', [HospitalAppointmentController::class, 'scan'])->name('rs-scan');
 
     Route::group(['prefix' => 'account'], function(){
         Route::get('/', [HospitalUserController::class, 'index'])->name('rs-account-index');
         Route::get('/edit', [HospitalUserController::class, 'editProfile'])->name('rs-profile-edit');
-        Route::put('/update', [HospitalUserController::class, 'updateProfile'])->name('rs-profile-update');
+        Route::post('/update', [HospitalUserController::class, 'updateProfile'])->name('rs-profile-update');
         Route::get('/change-password', [HospitalUserController::class, 'changePassword'])->name('rs-password-edit');
-        Route::put('/change-password', [HospitalUserController::class, 'updatePassword'])->name('rs-password-update');
+        Route::post('/change-password', [HospitalUserController::class, 'updatePassword'])->name('rs-password-update');
     });
 
     Route::group(['prefix' => 'stocks'], function(){
         Route::get('/', [HospitalStockController::class, 'index'])->name('rs-stock-index');
-        Route::put('update', [HospitalStockController::class, 'update'])->name('rs-stock-update');
+        Route::post('update', [HospitalStockController::class, 'update'])->name('rs-stock-update');
     });
 
     Route::group(['prefix' => 'appointments'], function(){
         Route::get('incoming', [HospitalAppointmentController::class, 'incoming'])->name('rs-appointment-incoming');
         Route::get('list', [HospitalAppointmentController::class, 'list'])->name('rs-appointment-list');
+        Route::post('confirmation/{mode}/{id}', [HospitalAppointmentController::class, 'appointmentStatus'])->name('rs-appointment-confirmation');
         Route::get('detail/{id}', [HospitalAppointmentController::class, 'detail'])->name('rs-appointment-detail');
-        Route::put('detail/{id}', [HospitalAppointmentController::class, 'changeStatus'])->name('rs-appointment-change-status');
         Route::post('detail/store', [HospitalAppointmentController::class, 'store'])->name('rs-appointment-store');
         Route::get('scan', [HospitalAppointmentController::class, 'scan'])->name('rs-appointment-scan');
     });

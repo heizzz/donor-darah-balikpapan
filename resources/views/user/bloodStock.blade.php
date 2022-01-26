@@ -10,12 +10,12 @@
         </div>
     @endif
 
-    <div class="row">
-        Lokasi:
-        <select class="form-select form-select-large mb-3" name="index" id="index">
-            <option value="1">
-                RSUD. Dr. H. Soemarno Sosroatmodjo
-            </option>
+    <div class="mb-3">
+        <label for="id" class="form-label">Lokasi:</label>   
+        <select class="form-select form-select-large mb-3" name="id" id="id">
+            @foreach ($hospitals as $hospital)
+                <option value="{{ $hospital->id }}">{{ $hospital->name }}</option>
+            @endforeach
         </select>
     </div>
 

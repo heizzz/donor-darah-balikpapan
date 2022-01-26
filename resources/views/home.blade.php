@@ -24,23 +24,19 @@
 
     <div class="row justify-content-center">
         <div class="col-2">
-            <a class="w-100" href="{{ route('user-stock-index') }}">
-                <button type="button" class="btn btn-primary">
-                    <img src="{{ url('img/LihatStok.png') }}" alt="">
-                    Lihat Stok Darah
-                </button>
-            </a>
-        </div>
-        <div class="col-2" @guest disabled @endguest>
-            <a class="w-100" href="{ { route('') } }">
-                <button type="button" class="btn btn-primary w-100" @guest disabled @endguest>
-                    <img src="{{ url('img/LihatStok.png') }}" alt="">
-                    Janjian Donor
-                </button>
+            <a class="btn btn-primary w-100" href="{{ route('user-stock-index') }}">
+                <img src="{{ url('img/LihatStok.png') }}" alt="">
+                Lihat Stok Darah
             </a>
         </div>
         <div class="col-2">
-            <button type="button" class="btn btn-primary w-100" @guest disabled @endguest>
+            <button class="btn btn-primary w-100" disabled>
+                <img src="{{ url('img/LihatStok.png') }}" alt="">
+                Janjian Donor
+            </button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary w-100" disabled>
                 <img src="{{ url('img/LihatStok.png') }}" alt="">
                 Lihat Riwayat
             </button>

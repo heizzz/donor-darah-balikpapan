@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {

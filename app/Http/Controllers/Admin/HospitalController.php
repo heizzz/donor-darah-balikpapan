@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class HospitalController extends Controller
 {
@@ -26,41 +32,108 @@ class HospitalController extends Controller
     {
         $hospitals = DB::table('users')
                         ->where('id_role', '=', 2)
+                        ->whereNull('deleted_at')
                         ->get();
-        return view('adminApp.listHospitals', compact('hospitals'));
+        return view('adminSystem.listHospitals', compact('hospitals'));
     }
 
     public function create()
     {
-        $hospitals = DB::table('users')
-                        ->where('id_role', '=', 2)
+        return view('adminSystem.registerHospital');
+    }
+
+    public function store(Request $request)
+    {
+        Validator::make($request->all(), [
+            'name' => 'required|alpha',
+            'email' => 'required|email:rfc,dns',
+            'address' => 'required',
+            'password' => 'required|gt:8',
+            'confirmPassword' => ['required', 'gt:8', new ConfirmPassword],
+        ], [
+            'required' => 'Inputan tidak boleh kosong',
+            'alpha' => 'Inputan hanya boleh mengandung huruf',
+            'email' => 'Inputan harus berisikan email',
+            'gt' => 'Harus lebih dari 8 karakter'
+        ])->validate();
+
+        $name = $request->input('name');
+        $address = $request->input('address');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $data = [
+          "name"  => $name,
+          "id_role" => 2,
+          "alamat" => $address,
+          "email" => $email,
+          "password" => Hash::make($password),
+          "updated_at" => Carbon::now(),
+          "created_at" => Carbon::now()
+        ];
+
+        $rsId = DB::table('users')
+            ->insertGetId($data);
+        
+        $bloodTypes = DB::table('blood_types')
+                        ->select('id')
                         ->get();
-        return view('adminApp.detailHospital', compact('hospitals'));
+        foreach ($bloodTypes as $bloodType) {
+            DB::table('blood_stocks')
+                ->insert([
+                    'id_user' => $rsId,
+                    'id_blood_type' => $bloodType,
+                    'jumlah' => 0,
+                    "updated_at" => Carbon::now(),
+                    "created_at" => Carbon::now()
+                ]);
+        }
+        return redirect()->route('admin-hospital-index');
     }
 
-    public function store()
+    public function detail($id)
     {
-        $hospitals = DB::table('users')
-                        ->where('id_role', '=', 2)
+        $hospital = DB::table('users')
+                        ->where('id_role', '=', $id)
                         ->get();
-        return view('adminApp.detailHospital', compact('hospitals'));
+        return view('adminSystem.detailHospital', compact('hospital'));
     }
 
-    public function detail()
+    public function update(Request $request, $id) 
     {
-        $hospitals = DB::table('users')
-                        ->where('id_role', '=', 2)
-                        ->get();
-        return view('adminApp.detailHospital', compact('hospitals'));
+        Validator::make($request->all(), [
+            'name' => 'required|alpha',
+            'email' => 'required|email:rfc,dns',
+            'address' => 'required'
+        ], [
+            'required' => 'Inputan tidak boleh kosong',
+            'alpha' => 'Inputan hanya boleh mengandung huruf',
+            'email' => 'Inputan harus berisikan email',
+        ])->validate();
+
+        $name = $request->input('name');
+        $address = $request->input('address');
+        $email = $request->input('email');
+        $data = [
+          "name"  => $name,
+          "alamat" => $address,
+          "email" => $email,
+          "updated_at" => Carbon::now()
+        ];
+        DB::table('users')
+            ->where('id', '=', $id)
+            ->update($data);
+        return redirect()->route('admin-hospital-index');
     }
 
-    public function update(Request $request) 
+    public function delete($id) 
     {
-
-    }
-
-    public function delete(Request $request) 
-    {
-
+        $data = [
+            "deleted_at" => Carbon::now(),
+            "updated_at" => Carbon::now()
+          ];
+          DB::table('users')
+              ->where('id', '=', $id)
+              ->update($data);
+        return redirect()->route('admin-hospital-index');
     }
 }

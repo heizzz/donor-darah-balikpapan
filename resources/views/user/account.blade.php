@@ -4,12 +4,15 @@
 
 @section('content')
 <div class="container">
-    {{ Auth::user() }}
     <div class="text-center">
         <h1>
             {{ Auth::user()->name }}
         </h1>
+        {{ Auth::user()->email }}
         <hr/>
+        NIK: {{ Auth::user()->nik }}
+        Jenis Kelamin: {{ Auth::user()->gender }}
+        Tanggal Lahir: {{ Auth::user()->birthDate }}
         Alamat: {{ Auth::user()->alamat }}
         <br/>
     </div>

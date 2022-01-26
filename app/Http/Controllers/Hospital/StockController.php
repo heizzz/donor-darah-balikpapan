@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class StockController extends Controller
 {
@@ -27,7 +33,7 @@ class StockController extends Controller
         // get data
         $data = DB::table('blood_stocks')
             ->join('blood_types', 'blood_types.id', 'blood_stocks.id_blood_type')
-            ->join('blood_components', 'blood_types.id', 'blood_stocks.id_blood_components')
+            ->join('blood_components', 'blood_components.id', 'blood_stocks.id_blood_components')
             ->where('id_user', Auth::user()->id)
             ->get();
 

@@ -11285,3 +11285,9 @@ textarea.form-control-lg {
 .logo-sponsor {
   height: 80px;
 }
+
+.webcam-preview {
+  width: 500px;
+  height: 500px;
+  margin: 0px auto;
+}

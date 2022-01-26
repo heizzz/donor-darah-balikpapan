@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Rules\ConfirmPassword;
 
 class UserController extends Controller
 {
@@ -40,11 +44,11 @@ class UserController extends Controller
         Validator::make($request->all(), [
             'name' => 'required|alpha',
             'email' => 'required|email:rfc,dns',
-            'alamat' => 'required',
+            'address' => 'required',
         ], [
-            'required' => 'Inputan tidak boleh kosong',
-            'alpha' => 'Inputan hanya boleh mengandung huruf',
-            'email' => 'Inputan harus berisikan email',
+            'required' => 'Input tidak boleh kosong',
+            'alpha' => 'Input hanya boleh mengandung huruf',
+            'email' => 'Input harus berisikan email',
         ])->validate();
 
         // update db
@@ -59,7 +63,7 @@ class UserController extends Controller
 
         // return data notif berhasil (?)
 
-        return view('adminHospital.account');
+        return redirect()->route('rs-account-index');
     }
 
     public function changePassword()
@@ -71,8 +75,9 @@ class UserController extends Controller
     {
         // validation
         Validator::make($request->all(), [
-            'password' => 'required|gt:8',
-            'confirmPassword' => ['required', 'gt:8', new ConfirmPassword],
+            'oldPassword' => 'required|gt:8',
+            'newPassword' => 'required|gt:8',
+            'confirmPassword' => 'required|gt:8|same:newPassword',
         ], [
             'required' => 'Inputan tidak boleh kosong',
             'gt' => 'Harus lebih dari 8 karakter',
@@ -82,12 +87,23 @@ class UserController extends Controller
         DB::table('users')
             ->where('id', Auth::user()->id)
             ->update([
-                'password' => $request->input('password'),
+                'password' => Hash::make($request->input('newPassword')),
                 "updated_at" => Carbon::now()
             ]);
 
-        // return data notif berhasil (?)
+        $currentPassword = DB::table('users')
+            ->where('id', Auth::user()->id)
+            ->first()->password;
 
-        return view('adminHospital.account');
+        if (Hash::check($request->input('oldPassword'), $currentPassword))  {
+            DB::table('users')
+            ->where('id', Auth::user()->id)
+            ->update([
+                'password' => Hash::make($request->input('newPassword')),
+                "updated_at" => Carbon::now()
+            ]);
+        }
+
+        return redirect()->route('rs-account-index');
     }
 }
