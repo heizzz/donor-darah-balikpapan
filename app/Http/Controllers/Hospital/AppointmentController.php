@@ -43,10 +43,10 @@ class AppointmentController extends Controller
 
     public function list($date = null)
     {
-        if(is_null($date)) {
+        if (is_null($date)) {
             $date = Carbon::today()->toDateString();
         }
-        
+
         // get list data
         $appointments = DB::table('appointments')
             ->select('appointments.*', 'users.name as namaUser')
@@ -59,19 +59,19 @@ class AppointmentController extends Controller
         return view('adminHospital.listAppointment', compact('data'));
     }
 
-    public function confirmationAppointment($mode, $id)
+    public function changeStatus(Request $request)
     {
-        // update db 
-        if ($mode == 'accept') {
+        // update db
+        if ($request->input('mode') == 'accept') {
             DB::table('appointments')
-                ->where('id', $id)
+                ->where('id', $request->input('id'))
                 ->update([
                     'status' => 'accepted',
                     'updated_at' => Carbon::now()
                 ]);
-        } else if($mode == 'decline') {
+        } else if ($request->input('mode') == 'decline') {
             DB::table('appointments')
-                ->where('id', $id)
+                ->where('id', $request->input('id'))
                 ->update([
                     'status' => 'declined',
                     'updated_at' => Carbon::now()
@@ -85,18 +85,18 @@ class AppointmentController extends Controller
     {
         // get detail data
         $data['detail'] = DB::table('appointments')
-                        ->join('blood_details', 'blood_details.id', 'appointments.id_blood_detail')
-                        ->join('blood_components', 'blood_components.id', 'appointments.id_blood_component')
-                        ->where('appointments.id', '=', $id)
-                        ->first();
+            ->join('blood_details', 'blood_details.id', 'appointments.id_blood_detail')
+            ->join('blood_components', 'blood_components.id', 'appointments.id_blood_component')
+            ->where('appointments.id', '=', $id)
+            ->first();
 
         // get  blood types
         $data['blood_types'] = DB::table('blood_types')
-                            ->get();
+            ->get();
 
         // get  blood components
         $data['blood_components'] = DB::table('blood_components')
-                                    ->get();
+            ->get();
 
         return view('adminHospital.detailAppointment', compact('data'));
     }
@@ -130,7 +130,7 @@ class AppointmentController extends Controller
         DB::table('blood_details')
             ->insert($data);
 
-            // update db 
+        // update db
         DB::table('appointments')
             ->where('id', $request->input('id_appointment'))
             ->update([
@@ -144,5 +144,18 @@ class AppointmentController extends Controller
     public function scan()
     {
         return view('adminHospital.QRScan');
+    }
+
+    public function checkin(Request $request)
+    {
+        // update db
+        DB::table('appointments')
+            ->where('id', $request->input('id'))
+            ->update([
+                'status' => 'ongoing',
+                'updated_at' => Carbon::now()
+            ]);
+
+        return redirect()->route('rs-appointment-list');
     }
 }

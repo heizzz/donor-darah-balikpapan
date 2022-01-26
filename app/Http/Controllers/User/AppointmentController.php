@@ -88,25 +88,11 @@ class AppointmentController extends Controller
                 ->join('users', 'appointments.id_rumah_sakit', 'users.id')
                 ->select('appointments.*', 'users.name as namaRs')
                 ->first();
-        
-        // scan qr masuk ke detail appointment, disana bisa konfirmasi kalo udah donor
-        // accept/deny incoming appointment nya sebelum scan harusnya
-        // mungkin minimal waktu antara waktu regist sama waktu appointment dikasi jarak 7 hari
-        // konfirmasi dari RS sebelum jadwal mereka donor darah
-        // pas hari H nya sebelum donor dia scan QR untuk memastikan identitas, masuk page form
-        // setelah donor, dia isi form, trus klik submit
-        
-        // appointment status udah ada
-        // bentar apa aja statusnya
-        // -pending   : menunggu konfirmasi
-        // -ongoing   : sudah dikonfirmasi (mungkin ganti confirmed)
-        // -completed : sudah donor darah dan hasil tes sudah diinput.
-        // -cancelled : ditolak RS (atau dibatalkan oleh user?)
-        
+
         $appointment['qrcode'] = QrCode::size(240)
                                 ->generate('donordarah/appointments/' . $id);
 
         return view('user.detailAppointment', compact('appointment'));
     }
-    
+
 }
