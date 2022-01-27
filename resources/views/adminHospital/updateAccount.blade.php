@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Ubah Data Rumah Sakit')
+@section('backPage', route('rs-account-index'))
 
 @section('content')
 <div class="container">

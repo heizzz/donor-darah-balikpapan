@@ -32,8 +32,10 @@ class HomeController extends Controller
     {
         $appointment = DB::table('appointments')
                         ->where('id_user', '=', Auth::user()->id)
-                        ->whereIn('status', ["pending", "ongoing"])
+                        ->whereIn('status', ["pending", "accepted", "ongoing"])
+                        ->join('users', 'appointments.id_rumah_sakit', 'users.id')
+                        ->select('appointments.*', 'users.name as namaRs')
                         ->first();
-        return view('user.home');
+        return view('user.home', compact('appointment'));
     }
 }

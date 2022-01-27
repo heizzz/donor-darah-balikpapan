@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Detail Janji Donor Darah')
+@section('backPage', route('user-appointment-history'))
 
 @section('content')
 <div class="container">

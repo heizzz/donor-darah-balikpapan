@@ -41,6 +41,14 @@ class AppointmentController extends Controller
 
     public function store(Request $request)
     {
+        Validator::make($request->all(), [
+            'id' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+        ], [
+            'required' => 'Inputan tidak boleh kosong',
+        ])->validate();
+
         $date = $request->input('date');
         $time = $request->input('time');
         $idRs = $request->input('id');
@@ -59,6 +67,19 @@ class AppointmentController extends Controller
 
         return redirect()->route('user-home');
     }
+    
+    public function cancel(Request $request)
+    {
+        // update db
+        DB::table('appointments')
+            ->where('id', $request->input('id'))
+            ->update([
+                'status' => 'cancelled',
+                'updated_at' => Carbon::now()
+            ]);
+
+        return redirect()->route('user-home');
+    }
 
     public function history()
     {
@@ -67,6 +88,8 @@ class AppointmentController extends Controller
                         ->where('id_user', '=', Auth::user()->id)
                         ->join('users', 'appointments.id_rumah_sakit', 'users.id')
                         ->select('appointments.*', 'users.name as namaRs')
+                        ->orderBy('id', 'desc')
+                        ->take(10)
                         ->get();
 
         return view('user.history', compact('appointments'));

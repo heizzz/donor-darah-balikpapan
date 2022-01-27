@@ -23,24 +23,27 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app" class="d-flex flex-column min-vh-100">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
-                {{-- @php
-                    $home_route = 'user-home';
-                    if(Auth::user()->id_role == 2)
-                        $home_route = 'rs-home';
-                    else if (Auth::user()->id_role == 3)
-                        $home_route = 'admin-home'
-                @endphp --}}
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name') }}
-                    @hasSection('title')
-                        &middot; @yield('title')
+                <!-- Left Side Of Navbar -->
+                <div class="d-flex flex-row align-items-center">
+                    @hasSection('backPage')
+                    <a href=" @yield('backPage') " class="text-decoration-none me-2">
+                        <img src="{{ asset('img/arrow-left.svg') }}" alt="Back"/>
+                    </a>
                     @endif
-                </a>
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        @hasSection('title')
+                            @yield('title')
+                        @else
+                            {{ config('app.name') }}
+                        @endif
+                    </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -52,13 +55,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Masuk') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Daftar Akun') }}</a>
                                 </li>
                             @endif
                         @else

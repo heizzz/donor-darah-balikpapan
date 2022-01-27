@@ -18,3 +18,27 @@
     height: 500px;
     margin: 0px auto;
 }
+
+.home-icon
+{
+    width: $home-icon-size-mini;
+    height: $home-icon-size-mini;
+    margin-right: 1em;
+    stroke-width: 20px !important;
+}
+
+@include media-breakpoint-up(md)
+{
+    .home-icon
+    {
+        width: $home-icon-size;
+        height: $home-icon-size;
+        margin-right: 0;
+        stroke-width: 40px !important;
+    }
+
+    .home-button
+    {
+        aspect-ratio: 1;
+    }
+}

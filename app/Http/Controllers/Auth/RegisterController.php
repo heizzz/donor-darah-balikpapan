@@ -53,6 +53,16 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nik' => ['required', 'min:16', 'numeric'], 
+            'tanggal_lahir' => ['required', 'date'], 
+            'alamat' => ['required'], 
+        ], [
+            'required'=> 'Inputan tidak boleh kosong', 
+            'string'=> 'Inputan tidak boleh mengandung angka', 
+            'email'=> 'Inputan harus berisikan alamat email', 
+            'password.min'=> 'Inputan minimal 8 karakter', 
+            'nik.min'=> 'Inputan minimal 16 karakter', 
+            'numeric' => 'Inputan harus berisikan angka'
         ]);
     }
 
@@ -67,7 +77,12 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'id_role' => 1,
             'password' => Hash::make($data['password']),
+            'nik' => $data['nik'],
+            'alamat' => $data['alamat'],
+            'gender' => $data['gender'],
+            'tanggal_lahir' => $data['tanggal_lahir'],  
         ]);
     }
 }

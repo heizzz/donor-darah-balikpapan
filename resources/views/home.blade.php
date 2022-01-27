@@ -10,34 +10,26 @@
         </div>
     @endif
 
-    @guest
-        <h1 class="row justify-content-center text-center">
-            Harap login terlebih dahulu untuk mengakses fitur lainnya.
-        </h1>
-    @else
-        <h1 class="row justify-content-center text-center">
-            <small class="text-muted">Selamat Pagi</small>
-            <strong>{{ Auth::user()->name }}</strong>
-            <small class="text-muted">Mari kita Donor Darah!</small>
-        </h1>
-    @endguest
+    <h1 class="row justify-content-center text-center">
+        Harap login terlebih dahulu untuk mengakses fitur lainnya.
+    </h1>
 
-    <div class="row justify-content-center">
-        <div class="col-2">
-            <a class="btn btn-primary w-100" href="{{ route('user-stock-index') }}">
-                <img src="{{ url('img/LihatStok.png') }}" alt="">
+    <div class="d-flex flex-row flex-wrap justify-content-center">
+        <div class="col-lg-3 col-xl-2 home-button">
+            <a class="btn btn-primary w-100 h-100 d-flex flex-md-column flex-nowrap align-items-center justify-content-center" href="{{ route('user-stock-index') }}">
+                <img src="{{ asset('img/stok.svg') }}" class="home-icon">
                 Lihat Stok Darah
             </a>
         </div>
-        <div class="col-2">
-            <button class="btn btn-primary w-100" disabled>
-                <img src="{{ url('img/LihatStok.png') }}" alt="">
+        <div class="col-lg-3 col-xl-2 home-button">
+            <button class="btn btn-primary w-100 h-100 d-flex flex-md-column flex-nowrap align-items-center justify-content-center" disabled>
+                <img src="{{ asset('img/stok.svg') }}" class="home-icon">
                 Janjian Donor
             </button>
         </div>
-        <div class="col-2">
-            <button class="btn btn-primary w-100" disabled>
-                <img src="{{ url('img/LihatStok.png') }}" alt="">
+        <div class="col-lg-3 col-xl-2 home-button">
+            <button class="btn btn-primary w-100 h-100 d-flex flex-md-column flex-nowrap align-items-center justify-content-center" disabled>
+                <img src="{{ asset('img/stok.svg') }}" class="home-icon">
                 Lihat Riwayat
             </button>
         </div>

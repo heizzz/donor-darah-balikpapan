@@ -51,6 +51,7 @@ Route::group(['prefix' => '/'], function(){
     Route::group(['prefix' => 'appointments'], function(){
         Route::get('/create', [UserAppointmentController::class, 'create'])->name('user-appointment-create');
         Route::post('/store', [UserAppointmentController::class, 'store'])->name('user-appointment-store');
+        Route::post('/cancel', [UserAppointmentController::class, 'cancel'])->name('user-appointment-cancel');
         Route::get('/history', [UserAppointmentController::class, 'history'])->name('user-appointment-history');
         Route::get('/detail/{id}', [UserAppointmentController::class, 'appointmentDetail'])->name('user-appointment-detail');
         Route::get('/blood/detail/{id}', [UserAppointmentController::class, 'donorDetail'])->name('user-appointment-blood-detail');
@@ -58,7 +59,7 @@ Route::group(['prefix' => '/'], function(){
 });
 
 // Route::group(['prefix' => 'admin', 'middleware' => ['member']], function(){
-Route::group(['prefix' => 'admin'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
     Route::get('home', [AdminHomeController::class, 'index'])->name('admin-home');
 
     Route::group(['prefix' => 'hospitals'], function(){
@@ -67,11 +68,11 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('store', [AdminHospitalController::class, 'store'])->name('admin-hospital-store');
         Route::get('{id}', [AdminHospitalController::class, 'detail'])->name('admin-hospital-detail');
         Route::post('{id}/update', [AdminHospitalController::class, 'update'])->name('admin-hospital-update');
-        Route::delete('{id}/delete', [AdminHospitalController::class, 'delete'])->name('admin-hospital-delete');
+        Route::get('{id}/delete', [AdminHospitalController::class, 'delete'])->name('admin-hospital-delete');
     });
 });
 
-Route::group(['prefix' => 'hospital'], function(){
+Route::group(['prefix' => 'hospital', 'middleware' => ['hospital']], function(){
     Route::get('home', [HospitalHomeController::class, 'index'])->name('rs-home');
     // Route::get('scan', [HospitalAppointmentController::class, 'scan'])->name('rs-scan');
 
@@ -90,7 +91,7 @@ Route::group(['prefix' => 'hospital'], function(){
 
     Route::group(['prefix' => 'appointments'], function(){
         Route::get('incoming', [HospitalAppointmentController::class, 'incoming'])->name('rs-appointment-incoming');
-        Route::get('list', [HospitalAppointmentController::class, 'list'])->name('rs-appointment-list');
+        Route::get('list/{date?}', [HospitalAppointmentController::class, 'list'])->name('rs-appointment-list');
         Route::post('confirmation', [HospitalAppointmentController::class, 'changeStatus'])->name('rs-appointment-change-status');
         Route::post('checkin', [HospitalAppointmentController::class, 'checkin'])->name('rs-appointment-checkin');
         Route::get('detail/{id}', [HospitalAppointmentController::class, 'detail'])->name('rs-appointment-detail');

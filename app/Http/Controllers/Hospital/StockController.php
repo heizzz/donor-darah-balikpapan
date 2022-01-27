@@ -33,7 +33,8 @@ class StockController extends Controller
         // get data
         $data = DB::table('blood_stocks')
             ->join('blood_types', 'blood_types.id', 'blood_stocks.id_blood_type')
-            ->join('blood_components', 'blood_components.id', 'blood_stocks.id_blood_components')
+            ->leftJoin('blood_components', 'blood_components.id', 'blood_stocks.id_blood_component')
+            ->select('blood_types.name as namaGolDar', 'blood_components.name as namaKomDar', 'blood_stocks.*')
             ->where('id_user', Auth::user()->id)
             ->get();
 
@@ -46,7 +47,7 @@ class StockController extends Controller
         // $total = DB::table('blood_stocks')
         //     ->where('id', $request->input('id'))
         //     ->value('jumlah');
-        $newTotal = $request->input('total');
+        // $newTotal = $request->input('total');
         // $mode = $request->input('mode');
 
         // if ($mode === 'increment') {
@@ -56,12 +57,28 @@ class StockController extends Controller
         // }
 
         // update db
-        DB::table('blood_stocks')
-            ->where('id', $request->input('id'))
-            ->update([
-                'jumlah' => $newTotal,
-                "updated_at" => Carbon::now()
-            ]);
+        // DB::table('blood_stocks')
+        //     ->where('id', $request->input('id'))
+        //     ->update([
+        //         'jumlah' => $newTotal,
+        //         "updated_at" => Carbon::now()
+        //     ]);
+
+
+        $secretKey = 'stock-';
+        $data = $request->all();
+        foreach ($data as $key => $value) {
+            if (str_contains($key, $secretKey) == true) {
+                $temp = str_replace($secretKey, '', $key);
+                
+                DB::table('blood_stocks')
+                    ->where('id', '=', $temp)
+                    ->update([
+                        'jumlah' => $value,
+                        'updated_at' => Carbon::now()
+                    ]);
+            }
+        }
 
         return redirect()->route('rs-stock-index');
     }

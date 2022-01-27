@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Ubah Data Diri')
+@section('backPage', route('user-account-index'))
 
 @section('content')
 <div class="container">
@@ -21,11 +22,11 @@
         </div>
         <div class="mb-3">
             <label for="gender" class="form-label">Jenis Kelamin</label>
-            <select type="gender" name="gender" id="gender" value="{{ Auth::user()->gender }}" class="form-control">
+            <select type="gender" name="gender" id="gender" class="form-control">
                 <option>-- Pilih Gender --</option>
-                <option value="m">Laki-laki (Male)</option>
-                <option value="f">Perempuan (Female)</option>
-                <option value="o">Lainnya (Others)</option>
+                <option value="m" @if (Auth::user()->gender == 'm') selected @endif>Laki-laki (Male)</option>
+                <option value="f" @if (Auth::user()->gender == 'f') selected @endif>Perempuan (Female)</option>
+                <option value="o" @if (Auth::user()->gender == 'o') selected @endif>Lainnya (Others)</option>
             </select>
         </div>
         <div class="mb-3">

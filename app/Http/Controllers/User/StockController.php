@@ -35,11 +35,13 @@ class StockController extends Controller
                         ->whereNull('deleted_at')
                         ->select('users.name', 'users.alamat', 'users.id')
                         ->get();
+        
         $bloodStocks = DB::table('blood_stocks')
                         ->leftJoin('blood_types', 'blood_stocks.id_blood_type', 'blood_types.id')
                         ->groupBy('id_blood_type', 'blood_types.name')
                         ->selectRaw('blood_stocks.id_blood_type, blood_types.name, sum(blood_stocks.jumlah) as totalBlood')
                         ->get();
+        
         return view('user.bloodStock', compact('hospitals', 'bloodStocks'));
     }
 
@@ -48,7 +50,7 @@ class StockController extends Controller
         $bloodStocks = DB::table('blood_stocks')
         ->where('blood_stocks.id_user', '=', $id)
         ->leftJoin('blood_types', 'blood_stocks.id_blood_type', 'blood_types.id')
-        ->select('blood_stocks.jumlah', 'blood_types.name')
+        ->select('blood_stocks.jumlah as totalBlood', 'blood_types.name')
         ->get();
 
         $hospitals = DB::table('users')
@@ -57,6 +59,10 @@ class StockController extends Controller
         ->select('users.name', 'users.alamat', 'users.id')
         ->get();
 
-        return view('user.bloodStock', compact('hospitals', 'bloodStocks'));
+        $rsName = DB::table('users')
+            ->where('id', '=', $id)
+            ->first()->name;
+        
+        return view('user.bloodStock', compact('hospitals', 'bloodStocks', 'id', 'rsName'));
     }
 }

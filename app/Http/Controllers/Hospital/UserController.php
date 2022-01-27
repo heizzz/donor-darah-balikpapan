@@ -43,7 +43,7 @@ class UserController extends Controller
         // validation
         Validator::make($request->all(), [
             'name' => 'required|alpha',
-            'email' => 'required|email:rfc,dns',
+            'email' => 'required|email',
             'address' => 'required',
         ], [
             'required' => 'Input tidak boleh kosong',

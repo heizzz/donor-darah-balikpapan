@@ -1,23 +1,26 @@
 @extends('layouts.app')
 
 @section('title', 'Akun Saya')
+@section('backPage', route('home'))
 
 @section('content')
 <div class="container">
-    <div class="text-center">
+    <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center">
         <h1>
             {{ Auth::user()->name }}
         </h1>
-        {{ Auth::user()->email }}
+        <h4>
+            {{ Auth::user()->email }}
+        </h4>
         <hr/>
-        Alamat: {{ Auth::user()->alamat }}
+        <div>
+            Alamat: {{ Auth::user()->alamat }}
+        </div>
         <br/>
-    </div>
-    <div class="text-center">
-        <a class="btn btn-secondary" href="{{ route('rs-profile-edit') }}" role="button">
+        <a class="btn btn-primary col-12 col-md-3" href="{{ route('rs-profile-edit') }}" role="button">
             Ubah Data Diri
         </a>
-        <a class="btn btn-secondary" href="{{ route('rs-password-edit') }}" role="button">
+        <a class="btn btn-secondary col-12 col-md-3" href="{{ route('rs-password-edit') }}" role="button">
             Ubah Password
         </a>
     </div>

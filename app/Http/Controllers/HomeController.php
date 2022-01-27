@@ -24,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (is_null(Auth::user()))
+        {
+            return view('home');
+        }
         $idRole = Auth::user()->id_role;
         if ($idRole == 1) {
             return redirect()->route('user-home');

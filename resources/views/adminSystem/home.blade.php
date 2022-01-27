@@ -10,40 +10,25 @@
         </div>
     @endif
 
-    @guest
-        <h1 class="row justify-content-center text-center">
-            Harap login terlebih dahulu untuk mengakses fitur lainnya.
-        </h1>
-    @else
-        <h1 class="row justify-content-center text-center">
-            <small class="text-muted">Selamat Pagi</small>
-            <strong>{{ Auth::user()->name }}</strong>
-            <small class="text-muted">Mari kita Donor Darah!</small>
-        </h1>
-    @endguest
-
-    <div class="row justify-content-center">
-        <div class="col-2">
-            <a class="w-100" href="{{ route('user-stock-index') }}">
-                <button type="button" class="btn btn-primary">
-                    <img src="{{ url('img/LihatStok.png') }}" alt="">
-                    Lihat Stok Darah
-                </button>
+    <h1 class="row justify-content-center text-center">
+        <small class="text-muted">Selamat Pagi</small>
+        <strong>{{ Auth::user()->name }}</strong>
+    </h1>
+    
+    <div class="d-flex flex-md-row flex-column flex-md-wrap justify-content-center gap-3 mt-5">
+        <div class="col-lg-3 col-xl-2 home-button">
+            <a class="btn btn-primary w-100 h-100 d-flex flex-md-column flex-nowrap align-items-center justify-content-center"
+                    href="{{ route('admin-hospital-index') }}">
+                <img src="{{ asset('img/riwayat.svg') }}" class="home-icon">
+                Lihat Rumah Sakit
             </a>
         </div>
-        <div class="col-2" @guest disabled @endguest>
-            <a class="w-100" href="{ { route('') } }">
-                <button type="button" class="btn btn-primary w-100" @guest disabled @endguest>
-                    <img src="{{ url('img/LihatStok.png') }}" alt="">
-                    Janjian Donor
-                </button>
+        <div class="col-lg-3 col-xl-2 home-button">
+            <a class="btn btn-primary w-100 h-100 d-flex flex-md-column flex-nowrap align-items-center justify-content-center"
+                    href="{{ route('admin-hospital-create') }}">
+                <img src="{{ asset('img/riwayat.svg') }}" class="home-icon">
+                Tambah Rumah Sakit
             </a>
-        </div>
-        <div class="col-2">
-            <button type="button" class="btn btn-primary w-100" @guest disabled @endguest>
-                <img src="{{ url('img/LihatStok.png') }}" alt="">
-                Lihat Riwayat
-            </button>
         </div>
     </div>
 </div>

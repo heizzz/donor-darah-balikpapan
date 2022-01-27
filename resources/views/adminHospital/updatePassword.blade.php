@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Ubah Password')
+@section('backPage', route('rs-account-index'))
 
 @section('content')
 <div class="container">

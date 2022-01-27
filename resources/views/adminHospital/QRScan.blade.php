@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('title', 'Scan QR')
-<style>
+@section('backPage', route('rs-appointment-list'))
 
-</style>
 @section('content')
 <div class="container">
     <video class="webcam-preview" id="webcam-preview"></video>
@@ -16,11 +15,6 @@
         let scanner = new Instascan.Scanner({ video: document.getElementById('webcam-preview') });
 
         scanner.addListener('scan', function (content) {
-            console.log(content);
-
-            // Verifikasi dulu dari aplikasi kita
-            // Cek depannya donordarah/appointments/
-
             let args = content.split("/");
             let valid = args.length == 3 && args[0] == "donordarah";
 
@@ -37,6 +31,10 @@
                     default:
                         console.log("Unknown mode " + mode);
                 }
+            }
+            else
+            {
+                console.log("Invalid QR code " + content);
             }
         });
 

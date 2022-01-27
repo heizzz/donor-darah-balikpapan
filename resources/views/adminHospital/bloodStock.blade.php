@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Stok Darah')
+@section('backPage', route('home'))
 
 @section('content')
 <div class="container">
@@ -10,17 +11,30 @@
         </div>
     @endif
 
-    <div class="mb-3">
-        <label for="id" class="form-label">Lokasi:</label>   
-        <select class="form-select form-select-large mb-3" name="id" id="id">
-            @foreach ($hospitals as $hospital)
-                <option value="{{ $hospital->id }}">{{ $hospital->name }}</option>
-            @endforeach
-        </select>
-    </div>
+    <form action="{{ route('rs-stock-update') }}" method="post" class="col-md-8 offset-md-2">
+        @csrf
 
-    <div class="row h-100">
-        {{ $bloodStocks }}
-    </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col">Golongan Darah</th>
+                    <th class="col">Stok</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($data as $stock)
+                <tr>
+                    <td>{{ $stock->namaGolDar }}</td>
+                    <td>
+                        <input type="number" name="stock-{{ $stock->id }}" class="form-control" value="{{ $stock->jumlah }}"}/>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <button class="btn btn-primary" type="submit">Ubah Stok Darah</button>
+        <button class="btn btn-primary" type="submit">Batal Perubahan</button>
+    </form>
 </div>
 @endsection

@@ -43,39 +43,44 @@ class AppointmentController extends Controller
 
     public function list($date = null)
     {
-        if (is_null($date)) {
+        if (empty($date)) {
             $date = Carbon::today()->toDateString();
         }
 
         // get list data
         $appointments = DB::table('appointments')
-            ->select('appointments.*', 'users.name as namaUser')
             ->join('users', 'appointments.id_user', 'users.id')
             ->where('id_rumah_sakit', Auth::user()->id)
-            ->where('status', 'ongoing')
-            ->whereDate('created_at', '=', $date)
+            ->where('status', 'accepted')
+            ->whereDate('appointments.created_at', '=', $date)
+            ->select('appointments.*', 'users.name as namaUser')
             ->get();
 
-        return view('adminHospital.listAppointment', compact('data'));
+        return view('adminHospital.listAppointment', compact('appointments', 'date'));
     }
 
     public function changeStatus(Request $request)
     {
+        $mode = $request->input('mode');
+        
         // update db
-        if ($request->input('mode') == 'accept') {
-            DB::table('appointments')
-                ->where('id', $request->input('id'))
-                ->update([
-                    'status' => 'accepted',
-                    'updated_at' => Carbon::now()
-                ]);
-        } else if ($request->input('mode') == 'decline') {
-            DB::table('appointments')
-                ->where('id', $request->input('id'))
-                ->update([
-                    'status' => 'declined',
-                    'updated_at' => Carbon::now()
-                ]);
+        switch ($mode) {
+            case 'accept':
+                DB::table('appointments')
+                    ->where('id', $request->input('id'))
+                    ->update([
+                        'status' => 'accepted',
+                        'updated_at' => Carbon::now()
+                    ]);
+                break;
+            case 'decline':
+                DB::table('appointments')
+                    ->where('id', $request->input('id'))
+                    ->update([
+                        'status' => 'declined',
+                        'updated_at' => Carbon::now()
+                    ]);
+                break;
         }
 
         return redirect()->route('rs-appointment-incoming');
@@ -85,17 +90,19 @@ class AppointmentController extends Controller
     {
         // get detail data
         $data['detail'] = DB::table('appointments')
-            ->join('blood_details', 'blood_details.id', 'appointments.id_blood_detail')
-            ->join('blood_components', 'blood_components.id', 'appointments.id_blood_component')
             ->where('appointments.id', '=', $id)
+            // ->leftJoin('blood_details', 'blood_details.id', 'appointments.id_blood_detail')
+            ->join('users', 'appointments.id_user', 'users.id')
+            ->select('users.name as namaUser', 'users.nik as nikUser', 'users.tanggal_lahir as tanggal_lahir', 'users.gender as gender', 'appointments.*')
+            // ->join('blood_components', 'blood_components.id', 'appointments.id_blood_component')
             ->first();
-
-        // get  blood types
-        $data['blood_types'] = DB::table('blood_types')
+            
+        // get blood types
+        $data['bloodTypes'] = DB::table('blood_types')
             ->get();
 
-        // get  blood components
-        $data['blood_components'] = DB::table('blood_components')
+        // get blood components
+        $data['bloodComponents'] = DB::table('blood_components')
             ->get();
 
         return view('adminHospital.detailAppointment', compact('data'));
@@ -110,6 +117,9 @@ class AppointmentController extends Controller
             'tekanan_sistol' => 'required|numeric',
             'tekanan_diastol' => 'required|numeric',
             'kadar_hb' => 'required|numeric',
+            'id_blood' => 'required',            
+            'id_appointment' => 'required',
+            'id_blood_component' => 'required'
         ], [
             'required' => 'Inputan tidak boleh kosong',
             'numeric' => 'Inputan harus berupa angka',
@@ -127,10 +137,11 @@ class AppointmentController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ];
+
+        // update db
         DB::table('blood_details')
             ->insert($data);
 
-        // update db
         DB::table('appointments')
             ->where('id', $request->input('id_appointment'))
             ->update([
