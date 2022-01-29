@@ -38,11 +38,11 @@ class UserController extends Controller
         return view('user.updateAccount');
     }
 
-    public function updateProfile(Request $request) 
+    public function updateProfile(Request $request)
     {
         Validator::make($request->all(), [
             'name' => 'required|alpha',
-            'email' => 'required|email:rfc,dns',
+            'email' => 'required|email',
             'address' => 'required',
             'birthDate' => 'required',
             'nik' => 'required',
@@ -74,7 +74,7 @@ class UserController extends Controller
         return view('user.updatePassword');
     }
 
-    public function updatePassword(Request $request) 
+    public function updatePassword(Request $request)
     {
         // validation
         Validator::make($request->all(), [

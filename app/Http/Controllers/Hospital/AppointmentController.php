@@ -51,7 +51,7 @@ class AppointmentController extends Controller
         $appointments = DB::table('appointments')
             ->join('users', 'appointments.id_user', 'users.id')
             ->where('id_rumah_sakit', Auth::user()->id)
-            ->where('status', 'accepted')
+            ->where('status', 'ongoing')
             ->whereDate('appointments.created_at', '=', $date)
             ->select('appointments.*', 'users.name as namaUser')
             ->get();
@@ -62,7 +62,7 @@ class AppointmentController extends Controller
     public function changeStatus(Request $request)
     {
         $mode = $request->input('mode');
-        
+
         // update db
         switch ($mode) {
             case 'accept':
@@ -96,7 +96,7 @@ class AppointmentController extends Controller
             ->select('users.name as namaUser', 'users.nik as nikUser', 'users.tanggal_lahir as tanggal_lahir', 'users.gender as gender', 'appointments.*')
             // ->join('blood_components', 'blood_components.id', 'appointments.id_blood_component')
             ->first();
-            
+
         // get blood types
         $data['bloodTypes'] = DB::table('blood_types')
             ->get();
@@ -117,7 +117,7 @@ class AppointmentController extends Controller
             'tekanan_sistol' => 'required|numeric',
             'tekanan_diastol' => 'required|numeric',
             'kadar_hb' => 'required|numeric',
-            'id_blood' => 'required',            
+            'id_blood_type' => 'required',
             'id_appointment' => 'required',
             'id_blood_component' => 'required'
         ], [
@@ -167,6 +167,6 @@ class AppointmentController extends Controller
                 'updated_at' => Carbon::now()
             ]);
 
-        return redirect()->route('rs-appointment-list');
+        return view('adminHospital.QRScan');
     }
 }

@@ -35,9 +35,6 @@
                             href="{{ route('user-appointment-cancel') }}">Batalkan Pertemuan
                     </button>
                 </form>
-                <div class="row mt-5">
-                    {{ $appointment['qrcode'] }}
-                </div>
                 @php
                 break;
             case 'accepted':

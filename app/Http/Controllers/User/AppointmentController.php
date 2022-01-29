@@ -67,7 +67,7 @@ class AppointmentController extends Controller
 
         return redirect()->route('user-home');
     }
-    
+
     public function cancel(Request $request)
     {
         // update db

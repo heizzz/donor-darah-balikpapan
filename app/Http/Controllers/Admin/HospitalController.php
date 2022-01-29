@@ -31,9 +31,9 @@ class HospitalController extends Controller
     public function index()
     {
         $hospitals = DB::table('users')
-                        ->where('id_role', '=', 2)
-                        ->whereNull('deleted_at')
-                        ->get();
+            ->where('id_role', '=', 2)
+            ->whereNull('deleted_at')
+            ->get();
 
         return view('adminSystem.listHospitals', compact('hospitals'));
     }
@@ -55,7 +55,7 @@ class HospitalController extends Controller
             'required' => 'Inputan tidak boleh kosong',
             'string' => 'Inputan hanya boleh mengandung kata',
             'email' => 'Inputan harus berisikan email',
-            'min' => 'Harus lebih dari 8 karakter', 
+            'min' => 'Harus lebih dari 8 karakter',
             'same' => 'Password dan konfirmasi password harus sama'
         ])->validate();
 
@@ -64,21 +64,21 @@ class HospitalController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         $data = [
-          "name"  => $name,
-          "id_role" => 2,
-          "alamat" => $address,
-          "email" => $email,
-          "password" => Hash::make($password),
-          "updated_at" => Carbon::now(),
-          "created_at" => Carbon::now()
+            "name"  => $name,
+            "id_role" => 2,
+            "alamat" => $address,
+            "email" => $email,
+            "password" => Hash::make($password),
+            "updated_at" => Carbon::now(),
+            "created_at" => Carbon::now()
         ];
 
         $rsId = DB::table('users')
             ->insertGetId($data);
-        
+
         $bloodTypes = DB::table('blood_types')
-                        ->select('id')
-                        ->get();
+            ->select('id')
+            ->get();
 
         foreach ($bloodTypes as $bloodType) {
             DB::table('blood_stocks')
@@ -97,12 +97,12 @@ class HospitalController extends Controller
     public function detail($id)
     {
         $hospital = DB::table('users')
-                        ->where('id', '=', $id)
-                        ->first();
+            ->where('id', '=', $id)
+            ->first();
         return view('adminSystem.detailHospital', compact('hospital'));
     }
 
-    public function update(Request $request, $id) 
+    public function update(Request $request, $id)
     {
         $val = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -118,10 +118,10 @@ class HospitalController extends Controller
         $address = $request->input('address');
         $email = $request->input('email');
         $data = [
-          "name"  => $name,
-          "alamat" => $address,
-          "email" => $email,
-          "updated_at" => Carbon::now()
+            "name"  => $name,
+            "alamat" => $address,
+            "email" => $email,
+            "updated_at" => Carbon::now()
         ];
 
         DB::table('users')
@@ -131,7 +131,7 @@ class HospitalController extends Controller
         return redirect()->route('admin-hospital-index');
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $data = [
             "deleted_at" => Carbon::now(),
@@ -139,8 +139,8 @@ class HospitalController extends Controller
         ];
 
         DB::table('users')
-              ->where('id', '=', $id)
-              ->update($data);
+            ->where('id', '=', $id)
+            ->update($data);
 
         return redirect()->route('admin-hospital-index');
     }

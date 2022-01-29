@@ -17,10 +17,16 @@
             NIK: {{ Auth::user()->nik }}
         </div>
         <div>
-            Jenis Kelamin: {{ Auth::user()->gender }}
+            Jenis Kelamin:  @if (Auth::user()->gender == "m")
+                Laki-laki
+            @elseif (Auth::user()->gender == "f")
+                Perempuan
+            @else
+                Lainnya
+            @endif
         </div>
         <div>
-            Tanggal Lahir: {{ Auth::user()->birthDate }}
+            Tanggal Lahir: {{ Auth::user()->tanggal_lahir }}
         </div>
         <div>
             Alamat: {{ Auth::user()->alamat }}

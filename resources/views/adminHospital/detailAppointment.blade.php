@@ -48,19 +48,31 @@
                 }
             @endphp
         </div>
-        
+        <hr>
         <form action="{{ route('rs-appointment-store') }}" method="post">
             @csrf
             <input type="hidden" name="id_appointment" value="{{ $data['detail']->id }}" />
 
             <div class="row mb-3">
                 <label for="berat_badan" class="form-label">Berat Badan (kg)</label>
-                <input type="number" name="berat_badan" id="berat_badan" class="form-control"/>
+                <input type="number" name="berat_badan" id="berat_badan" class="form-control @error('berat_badan') is-invalid @enderror"/>
+
+                @error('berat_badan')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-            
+
             <div class="row mb-3">
                 <label for="tinggi_badan" class="form-label">Tinggi Badan (cm)</label>
-                <input type="number" name="tinggi_badan" id="tinggi_badan" class="form-control"/>
+                <input type="number" name="tinggi_badan" id="tinggi_badan" class="form-control @error('tinggi_badan') is-invalid @enderror"/>
+
+                @error('tinggi_badan')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
 
             <div class="row mb-3">
@@ -71,7 +83,7 @@
                     @endforeach
                 </select>
             </div>
-    
+
             <div class="row mb-3">
                 <label for="id_blood_component" class="form-label">Komponen Darah</label>
                 <select name="id_blood_component" id="id_blood_component" class="form-select form-select-large">
@@ -80,22 +92,40 @@
                     @endforeach
                 </select>
             </div>
-    
+
             <div class="row mb-3">
                 <label for="kadar_hb" class="form-label">Kadar HB</label>
-                <input type="number" name="kadar_hb" id="kadar_hb" class="form-control"/>
+                <input type="number" name="kadar_hb" id="kadar_hb" class="form-control @error('kadar_hb') is-invalid @enderror"/>
+
+                @error('kadar_hb')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-    
+
             <div class="row mb-3">
                 <label for="tekanan_sistol" class="form-label">Tekanan Sistol</label>
-                <input type="number" name="tekanan_sistol" id="tekanan_sistol" class="form-control"/>
+                <input type="number" name="tekanan_sistol" id="tekanan_sistol" class="form-control @error('tekanan_sistol') is-invalid @enderror"/>
+
+                @error('tekanan_sistol')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-    
+
             <div class="row mb-3">
                 <label for="tekanan_diastol" class="form-label">Tekanan Diastol</label>
-                <input type="number" name="tekanan_diastol" id="tekanan_diastol" class="form-control"/>
+                <input type="number" name="tekanan_diastol" id="tekanan_diastol" class="form-control @error('tekanan_diastol') is-invalid @enderror"/>
+
+                @error('tekanan_diastol')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-    
+
             <button class="btn btn-primary" type="submit">Kirim Data</button>
         </form>
     </div>

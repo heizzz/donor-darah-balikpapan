@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Daftar Akun')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -63,7 +65,7 @@
                                     <option value="f" @if (old('gender') == 'f') selected @endif >Perempuan (Female)</option>
                                     <option value="o" @if (old('gender') == 'o') selected @endif >Lainnya (Others)</option>
                                 </select>
-                                
+
                                 @error('gender')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -71,7 +73,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <label for="tanggal_lahir" class="col-md-4 col-form-label text-md-end">{{ __('Tanggal Lahir') }}</label>
 

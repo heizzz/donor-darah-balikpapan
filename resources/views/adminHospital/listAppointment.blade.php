@@ -7,6 +7,13 @@
 <div class="container">
     <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 d-flex flex-column justify-content-center">
         <div class="row">
+            <a type="button" class="btn btn-primary col-md-3"
+                href="{{ route('rs-appointment-scan') }}">
+                Scan QR
+            </a>
+        </div>
+        <br>
+        <div class="row">
             <label for="date">Tanggal:</label>
             <input type="date" name="date" id="date"/>
         </div>
