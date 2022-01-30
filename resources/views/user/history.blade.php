@@ -28,7 +28,17 @@
                 <a class="card {{ $bgColor }} {{ $textColor }} mb-3 p-3 w-100 text-decoration-none" href="{{ route('user-appointment-detail', $appointment->id) }}">
                     <h2>{{ $appointment->namaRs }}</h2>
                     {{ $appointment->tanggal }}, {{ $appointment->waktu }}
-                    <h4 class="mt-2">Status: {{ $appointment->status }}</h4>
+                    <h4 class="mt-2">Status: @if ($appointment->status == "pending")
+                        Menunggu
+                    @elseif($appointment->status == "accepted")
+                        Diterima
+                    @elseif($appointment->status == "ongoing")
+                        Sedang Berjalan
+                    @elseif($appointment->status == "completed")
+                        Selesai
+                    @elseif($appointment->status == "canceled")
+                        Gagal
+                    @endif</h4>
                 </a>
             </div>
         @endforeach
