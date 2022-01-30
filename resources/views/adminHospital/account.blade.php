@@ -17,10 +17,10 @@
             Alamat: {{ Auth::user()->alamat }}
         </div>
         <br/>
-        <a class="btn btn-primary col-12 col-md-3" href="{{ route('rs-profile-edit') }}" role="button">
+        <a class="btn btn-primary col-12 col-md-4 col-lg-3 mb-3" href="{{ route('rs-profile-edit') }}" role="button">
             Ubah Data Diri
         </a>
-        <a class="btn btn-secondary col-12 col-md-3" href="{{ route('rs-password-edit') }}" role="button">
+        <a class="btn btn-secondary col-12 col-md-4 col-lg-3 mb-3" href="{{ route('rs-password-edit') }}" role="button">
             Ubah Password
         </a>
     </div>

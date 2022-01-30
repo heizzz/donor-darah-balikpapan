@@ -17,13 +17,24 @@
             NIK: {{ Auth::user()->nik }}
         </div>
         <div>
-            Jenis Kelamin:  @if (Auth::user()->gender == "m")
-                Laki-laki
-            @elseif (Auth::user()->gender == "f")
-                Perempuan
-            @else
-                Lainnya
-            @endif
+            Jenis Kelamin:
+            @php
+            switch (Auth::user()->gender)
+            {
+                case "m":
+                    echo "Laki-laki (Male)";
+                    break;
+                case "f":
+                    echo "Perempuan (Female)";
+                    break;
+                case "o":
+                    echo "Lainnya (Others)";
+                    break;
+                default:
+                    echo "-";
+                    break;
+            }
+            @endphp
         </div>
         <div>
             Tanggal Lahir: {{ Auth::user()->tanggal_lahir }}
@@ -32,10 +43,10 @@
             Alamat: {{ Auth::user()->alamat }}
         </div>
         <br/>
-        <a class="btn btn-primary col-12 col-md-3" href="{{ route('user-profile-edit') }}" role="button">
+        <a class="btn btn-primary col-12 col-md-4 col-lg-3 mb-3" href="{{ route('user-profile-edit') }}" role="button">
             Ubah Data Diri
         </a>
-        <a class="btn btn-secondary col-12 col-md-3" href="{{ route('user-password-edit') }}" role="button">
+        <a class="btn btn-primary col-12 col-md-4 col-lg-3 mb-3" href="{{ route('user-password-edit') }}" role="button">
             Ubah Password
         </a>
     </div>

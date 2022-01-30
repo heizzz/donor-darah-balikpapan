@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="container">
-    <form action="{{ route('rs-profile-update') }}" method="post">
+    <form action="{{ route('rs-profile-update') }}" method="post" class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
         @csrf
 
         <div class="mb-3">
@@ -39,7 +39,7 @@
             @enderror
         </div>
 
-        <button class="btn btn-primary" type="submit">Ubah Data</button>
+        <button class="btn btn-primary col-12 col-md-4 col-lg-3" type="submit">Ubah Data</button>
     </form>
 </div>
 @endsection

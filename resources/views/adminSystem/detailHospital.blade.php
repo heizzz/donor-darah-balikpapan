@@ -40,10 +40,10 @@
              @enderror
         </div>
         <div class="row">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4 col-lg-3 mb-3">
                 <button class="btn btn-primary w-100" type="submit">Ubah</button>
             </div>
-            <div class="col-12 col-md-3 mb-3">
+            <div class="col-12 col-md-4 col-lg-3">
                 <a class="btn btn-warning w-100" href="{{ route('admin-hospital-delete', $hospital->id) }}">Hapus</a>
             </div>
         </div>

@@ -29,6 +29,9 @@
                     case "o":
                         echo "Lainnya (Others)";
                         break;
+                    default:
+                        echo "-";
+                        break;
                 }
             @endphp
         </div>
@@ -46,6 +49,9 @@
 
                     echo date('d F Y', $bdTime) . " (" . $age . " tahun)";
                 }
+                else {
+                    echo "-";
+                }
             @endphp
         </div>
         <hr>
@@ -55,7 +61,7 @@
 
             <div class="row mb-3">
                 <label for="berat_badan" class="form-label">Berat Badan (kg)</label>
-                <input type="number" name="berat_badan" id="berat_badan" class="form-control @error('berat_badan') is-invalid @enderror"/>
+                <input type="number" name="berat_badan" id="berat_badan" min="0" max="300" step="any" class="form-control @error('berat_badan') is-invalid @enderror"/>
 
                 @error('berat_badan')
                     <span class="invalid-feedback" role="alert">
@@ -66,7 +72,7 @@
 
             <div class="row mb-3">
                 <label for="tinggi_badan" class="form-label">Tinggi Badan (cm)</label>
-                <input type="number" name="tinggi_badan" id="tinggi_badan" class="form-control @error('tinggi_badan') is-invalid @enderror"/>
+                <input type="number" name="tinggi_badan" id="tinggi_badan" min="0" max="300" step="any" class="form-control @error('tinggi_badan') is-invalid @enderror"/>
 
                 @error('tinggi_badan')
                     <span class="invalid-feedback" role="alert">
@@ -95,7 +101,7 @@
 
             <div class="row mb-3">
                 <label for="kadar_hb" class="form-label">Kadar HB</label>
-                <input type="number" name="kadar_hb" id="kadar_hb" class="form-control @error('kadar_hb') is-invalid @enderror"/>
+                <input type="number" name="kadar_hb" id="kadar_hb" min="0" max="300" step="any" class="form-control @error('kadar_hb') is-invalid @enderror"/>
 
                 @error('kadar_hb')
                     <span class="invalid-feedback" role="alert">
@@ -106,7 +112,7 @@
 
             <div class="row mb-3">
                 <label for="tekanan_sistol" class="form-label">Tekanan Sistol</label>
-                <input type="number" name="tekanan_sistol" id="tekanan_sistol" class="form-control @error('tekanan_sistol') is-invalid @enderror"/>
+                <input type="number" name="tekanan_sistol" id="tekanan_sistol" min="0" max="300" step="any" class="form-control @error('tekanan_sistol') is-invalid @enderror"/>
 
                 @error('tekanan_sistol')
                     <span class="invalid-feedback" role="alert">
@@ -117,7 +123,7 @@
 
             <div class="row mb-3">
                 <label for="tekanan_diastol" class="form-label">Tekanan Diastol</label>
-                <input type="number" name="tekanan_diastol" id="tekanan_diastol" class="form-control @error('tekanan_diastol') is-invalid @enderror"/>
+                <input type="number" name="tekanan_diastol" id="tekanan_diastol" min="0" max="300" step="any" class="form-control @error('tekanan_diastol') is-invalid @enderror"/>
 
                 @error('tekanan_diastol')
                     <span class="invalid-feedback" role="alert">

@@ -58,7 +58,7 @@
                 </span>
             @enderror
         </div>
-        <button class="btn btn-primary col-12 col-md-3" type="submit">Simpan</button>
+        <button class="btn btn-primary col-12 col-md-4 col-lg-3" type="submit">Simpan</button>
     </form>
 </div>
 @endsection

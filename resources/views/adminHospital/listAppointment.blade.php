@@ -7,7 +7,7 @@
 <div class="container">
     <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 d-flex flex-column justify-content-center">
         <div class="row">
-            <a type="button" class="btn btn-primary col-md-3"
+            <a type="button" class="btn btn-primary w-100 mb-3"
                 href="{{ route('rs-appointment-scan') }}">
                 Scan QR
             </a>
