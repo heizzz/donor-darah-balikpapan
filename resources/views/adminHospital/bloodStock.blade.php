@@ -26,7 +26,7 @@
                 <tr>
                     <td>{{ $stock->namaGolDar }}</td>
                     <td>
-                        <input type="number" name="stock-{{ $stock->id }}" class="form-control" value="{{ $stock->jumlah }}"}/>
+                        <input type="number" name="stock-{{ $stock->id }}" class="form-control" value="{{ $stock->jumlah }}" min="0"/>
                     </td>
                 </tr>
                 @endforeach
@@ -34,7 +34,6 @@
         </table>
 
         <button class="btn btn-primary" type="submit">Ubah Stok Darah</button>
-        <button class="btn btn-primary" type="submit">Batal Perubahan</button>
     </form>
 </div>
 @endsection

@@ -13,6 +13,7 @@
             {{ Auth::user()->email }}
         </h4>
         <hr/>
+        @if(Auth::user()->id_role == 1)
         <div>
             NIK: {{ Auth::user()->nik }}
         </div>
@@ -46,6 +47,7 @@
         <a class="btn btn-primary col-12 col-md-4 col-lg-3 mb-3" href="{{ route('user-profile-edit') }}" role="button">
             Ubah Data Diri
         </a>
+        @endif
         <a class="btn btn-primary col-12 col-md-4 col-lg-3 mb-3" href="{{ route('user-password-edit') }}" role="button">
             Ubah Password
         </a>

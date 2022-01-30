@@ -42,12 +42,12 @@ class UserController extends Controller
     {
         // validation
         Validator::make($request->all(), [
-            'name' => 'required|alpha',
+            'name' => 'required|string',
             'email' => 'required|email',
             'address' => 'required',
         ], [
             'required' => 'Input tidak boleh kosong',
-            'alpha' => 'Input hanya boleh mengandung huruf',
+            'string' => 'Input hanya boleh mengandung huruf',
             'email' => 'Input harus berisikan email',
         ])->validate();
 

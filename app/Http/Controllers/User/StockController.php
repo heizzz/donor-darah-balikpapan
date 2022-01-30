@@ -18,10 +18,10 @@ class StockController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -35,13 +35,13 @@ class StockController extends Controller
                         ->whereNull('deleted_at')
                         ->select('users.name', 'users.alamat', 'users.id')
                         ->get();
-        
+
         $bloodStocks = DB::table('blood_stocks')
                         ->leftJoin('blood_types', 'blood_stocks.id_blood_type', 'blood_types.id')
                         ->groupBy('id_blood_type', 'blood_types.name')
                         ->selectRaw('blood_stocks.id_blood_type, blood_types.name, sum(blood_stocks.jumlah) as totalBlood')
                         ->get();
-        
+
         return view('user.bloodStock', compact('hospitals', 'bloodStocks'));
     }
 
@@ -62,7 +62,7 @@ class StockController extends Controller
         $rsName = DB::table('users')
             ->where('id', '=', $id)
             ->first()->name;
-        
+
         return view('user.bloodStock', compact('hospitals', 'bloodStocks', 'id', 'rsName'));
     }
 }

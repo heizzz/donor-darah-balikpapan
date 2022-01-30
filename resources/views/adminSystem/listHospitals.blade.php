@@ -10,8 +10,8 @@
             <thead>
                 <tr>
                     <th scope="row">#</th>
-                    <th scope="row">Name</th>
-                    <th scope="row">Actions</th>
+                    <th scope="row">Nama</th>
+                    <th scope="row">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,7 +20,7 @@
                     <th scope="col">{{ $key+1 }}</td>
                     <td>{{ $hospital->name }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ route('admin-hospital-detail', $hospital->id) }}">Detail
+                        <a class="btn btn-primary" href="{{ route('admin-hospital-detail', $hospital->id) }}">Detil
                     </td>
                 </tr>
                 @endforeach

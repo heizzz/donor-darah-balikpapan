@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Detail Rumah Sakit')
-@section('backPage', route('home'))
+@section('backPage', route('admin-hospital-index'))
 
 @section('content')
 <div class="container">
@@ -12,7 +12,7 @@
         <div class="mb-3">
             <label for="name" class="form-label">Nama Rumah Sakit</label>
             <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ $hospital->name }}"/>
-            
+
             @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
         <div class="mb-3">
             <label for="address" class="form-label">Alamat</label>
             <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ $hospital->alamat }}"/>
-            
+
             @error('address')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

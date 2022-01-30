@@ -9,7 +9,7 @@
             {{ session('status') }}
         </div>
     @endif
-    
+
     <h1 class="row justify-content-center text-center">
         <small class="text-muted">Selamat Pagi</small>
         <strong>{{ Auth::user()->name }}</strong>
@@ -25,7 +25,7 @@
         <div class="col-lg-3 col-xl-2 home-button">
             <a class="btn btn-primary w-100 d-flex flex-md-column flex-nowrap align-items-center justify-content-center" href="{{ route('rs-appointment-incoming') }}">
                 <img src="{{ asset('img/riwayat.svg') }}" class="home-icon">
-                Lihat Permintaan Masuk
+                Lihat Permintaan Donor
             </a>
         </div>
         <div class="col-lg-3 col-xl-2 home-button">

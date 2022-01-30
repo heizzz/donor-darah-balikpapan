@@ -102,7 +102,7 @@
             @yield('content')
         </main>
 
-        <footer class="text-center py-3 my-4 mt-auto border-top">
+        <footer class="text-center py-3 mt-auto border-top">
             <img class="logo-sponsor" src="{{ url('img/LogoDiskominfo.png') }}">
             <img class="logo-sponsor" src="{{ url('img/LogoPemkotBalikpapan.png') }}">
         </footer>

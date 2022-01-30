@@ -26,7 +26,7 @@
             <strong>{{ Auth::user()->name }}</strong>
             <small class="text-muted">Mari kita Donor Darah!</small>
         </h1>
-    @endguest
+    @endif
 
     <div class="d-flex flex-md-row flex-column flex-md-wrap justify-content-center gap-3 mt-5">
         <div class="col-lg-3 col-xl-2 home-button">

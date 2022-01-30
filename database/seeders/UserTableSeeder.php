@@ -18,28 +18,28 @@ class UserTableSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         DB::table('users')->truncate(); //for cleaning earlier data to avoid duplicate entries
         DB::table('users')->insert([
-          'name' => 'pleb',
-          'id' => '1',
-          'id_role' => '1',
-          'email' => 'aaa@gmail.com',
-          'password' => Hash::make('aaaaaaaa'),
-          'alamat' => 'jl isekai'
+            'name' => 'Daniel',
+            'id' => '1',
+            'id_role' => '1',
+            'email' => 'daniel@gmail.com',
+            'password' => Hash::make('aaaaaaaa'),
+            'alamat' => 'Perumahan BDI'
         ]);
         DB::table('users')->insert([
-            'name' => 'admin rs',
+            'name' => 'RSUD Beriman Balikpapan',
             'id' => '2',
             'id_role' => '2',
-            'email' => 'bbb@gmail.com',
+            'email' => 'rsudBeriman@gmail.com',
             'password' => Hash::make('aaaaaaaa'),
-            'alamat' => 'jl isekai'
+            'alamat' => 'Jl Mayjend Sutoyo'
         ]);
         DB::table('users')->insert([
-            'name' => 'admin app',
+            'name' => 'Admin Donor Darah Balikpapan',
             'id' => '3',
             'id_role' => '3',
-            'email' => 'ccc@gmail.com',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('aaaaaaaa'),
-            'alamat' => 'jl isekai'
+            'alamat' => '-'
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }

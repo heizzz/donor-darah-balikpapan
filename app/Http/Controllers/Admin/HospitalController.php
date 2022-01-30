@@ -47,7 +47,7 @@ class HospitalController extends Controller
     {
         Validator::make($request->all(), [
             'name' => 'required|string',
-            'email' => 'required|email:rfc,dns',
+            'email' => 'required|email',
             'address' => 'required',
             'password' => 'required|min:8',
             'confirmPassword' => 'required|min:8|same:password',

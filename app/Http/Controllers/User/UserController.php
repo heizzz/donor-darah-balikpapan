@@ -41,7 +41,7 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         Validator::make($request->all(), [
-            'name' => 'required|alpha',
+            'name' => 'required|string',
             'email' => 'required|email',
             'address' => 'required',
             'birthDate' => 'required',
@@ -49,7 +49,7 @@ class UserController extends Controller
             'gender' => 'required'
         ], [
             'required' => 'Inputan tidak boleh kosong',
-            'alpha' => 'Inputan hanya boleh mengandung huruf',
+            'string' => 'Inputan hanya boleh mengandung huruf',
             'email' => 'Inputan harus berisikan email',
         ])->validate();
 
