@@ -25,7 +25,14 @@
             @endphp
 
             <div class="row">
-                <a class="card {{ $bgColor }} {{ $textColor }} mb-3 p-3 w-100 text-decoration-none" href="{{ route('user-appointment-detail', $appointment->id) }}">
+                <a class="card {{ $bgColor }} {{ $textColor }} mb-3 p-3 w-100 text-decoration-none" href="@php
+                if ($appointment->status == "completed") {
+                    echo route('user-appointment-blood-detail', $appointment->id);
+                }
+                else {
+                    echo route('user-appointment-detail', $appointment->id);
+                }
+                @endphp ">
                     <h2>{{ $appointment->namaRs }}</h2>
                     {{ $appointment->tanggal }}, {{ $appointment->waktu }}
                     <h4 class="mt-2">Status: @if ($appointment->status == "pending")
@@ -36,8 +43,8 @@
                         Sedang Berjalan
                     @elseif($appointment->status == "completed")
                         Selesai
-                    @elseif($appointment->status == "canceled")
-                        Gagal
+                    @elseif($appointment->status == "cancelled")
+                        Dibatalkan
                     @endif</h4>
                 </a>
             </div>

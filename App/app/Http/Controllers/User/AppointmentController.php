@@ -99,8 +99,13 @@ class AppointmentController extends Controller
     {
         $detail = DB::table('appointments')
                     ->where('appointments.id', '=', $id)
+                    ->join('users', 'appointments.id_rumah_sakit', 'users.id')
                     ->join('blood_details', 'blood_details.id', 'appointments.id_blood_detail')
+                    ->join('blood_components', 'blood_components.id', 'blood_details.id_blood_component')
+                    ->join('blood_types', 'blood_types.id', 'blood_details.id_blood_type')
+                    ->select('appointments.*', 'users.name as namaRs', 'blood_details.*', 'blood_components.name as namaKomponen', 'blood_types.name as namaTipeDarah')
                     ->first();
+
         return view('user.detailHistory', compact('detail'));
     }
 

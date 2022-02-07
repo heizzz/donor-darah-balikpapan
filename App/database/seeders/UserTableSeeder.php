@@ -23,7 +23,8 @@ class UserTableSeeder extends Seeder
             'id_role' => '1',
             'email' => 'daniel@gmail.com',
             'password' => Hash::make('aaaaaaaa'),
-            'alamat' => 'Perumahan BDI'
+            'alamat' => 'Perumahan BDI',
+            'gender' => 'm'
         ]);
         DB::table('users')->insert([
             'name' => 'RSUD Beriman Balikpapan',

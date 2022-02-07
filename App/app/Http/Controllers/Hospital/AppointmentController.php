@@ -52,7 +52,7 @@ class AppointmentController extends Controller
             ->join('users', 'appointments.id_user', 'users.id')
             ->where('id_rumah_sakit', Auth::user()->id)
             ->where('status', 'ongoing')
-            ->whereDate('appointments.created_at', '=', $date)
+            ->whereDate('appointments.tanggal', '=', $date)
             ->select('appointments.*', 'users.name as namaUser')
             ->get();
 
@@ -139,12 +139,13 @@ class AppointmentController extends Controller
         ];
 
         // update db
-        DB::table('blood_details')
-            ->insert($data);
+        $blood_detail = DB::table('blood_details')
+            ->insertGetId($data);
 
         DB::table('appointments')
             ->where('id', $request->input('id_appointment'))
             ->update([
+                'id_blood_detail' => $blood_detail,
                 'status' => 'completed',
                 'updated_at' => Carbon::now()
             ]);

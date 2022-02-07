@@ -19,7 +19,7 @@
                 @foreach ($hospitals as $hospital)
                     <option value="{{ $hospital->id }}" id="{{ route('user-stock-detail', $hospital->id) }}">{{ $hospital->name }}</option>
                 @endforeach
-            @else 
+            @else
             <option value="Seluruh Rumah Sakit" id="default">Seluruh Rumah Sakit</option>
                 @foreach ($hospitals as $hospital)
                     @if($hospital->id == $id)
@@ -70,10 +70,10 @@
         },
         tooltip: {},
         legend: {
-            data: ['jumlah'],
+            data: ['Jumlah'],
             orient: 'vertical',
-            right: 0,
-            top: 'center'
+            right: 'center',
+            bottom: 0,
         },
         xAxis: {
             data: xAxisData
@@ -81,7 +81,7 @@
         yAxis: {},
         series: [
             {
-                name: 'jumlah',
+                name: 'Jumlah',
                 type: 'bar',
                 data: seriesData
             }
@@ -90,5 +90,12 @@
 
         // Display the chart using the configuration items and data just specified.
         myChart.setOption(option);
+        myChart.resize();
+
+        $(window).on('resize', function(){
+            if(myChart != null && myChart != undefined){
+                myChart.resize();
+            }
+        });
     </script>
 @endsection
